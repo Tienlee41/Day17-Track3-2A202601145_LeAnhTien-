@@ -41,7 +41,18 @@ class StudentMemory:
         except Exception:
             fact_text = ""
 
-        return join_nonempty([context_block, fact_text], sep="\n\n")
+        try:
+            episodes = self.client.graph.search(
+                user_id=user_id,
+                query=cap_query(query),
+                scope="episodes",
+                limit=8,
+            )
+            episode_text = render_graph_search(episodes, episode_char_cap=220)
+        except Exception:
+            episode_text = ""
+
+        return join_nonempty([context_block, fact_text, episode_text], sep="\n\n")
 
     def retrieve_episodic(self, user_id: str, query: str) -> str:
         # LAB TODO 2/4

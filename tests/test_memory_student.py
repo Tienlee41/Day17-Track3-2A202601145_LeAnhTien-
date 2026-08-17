@@ -20,7 +20,14 @@ class GraphStub:
 
 def test_long_term_combines_context_block_and_user_facts(monkeypatch):
     graph = GraphStub(
-        [SimpleNamespace(edges=[SimpleNamespace(fact="Python", valid_at="now", invalid_at=None)])]
+        [
+            SimpleNamespace(
+                edges=[SimpleNamespace(fact="Python", valid_at="now", invalid_at=None)]
+            ),
+            SimpleNamespace(
+                episodes=[SimpleNamespace(content="Open loop LAB-REPORT-1600", metadata={})]
+            ),
+        ]
     )
     client = SimpleNamespace(
         thread=SimpleNamespace(
@@ -39,9 +46,13 @@ def test_long_term_combines_context_block_and_user_facts(monkeypatch):
     assert primed
     assert "Current user context" in text
     assert "FACT: Python" in text
+    assert "LAB-REPORT-1600" in text
     assert graph.calls[0]["user_id"] == "user-1"
     assert graph.calls[0]["scope"] == "edges"
     assert graph.calls[0]["limit"] == 20
+    assert graph.calls[1]["user_id"] == "user-1"
+    assert graph.calls[1]["scope"] == "episodes"
+    assert graph.calls[1]["limit"] == 8
 
 
 def test_episodic_search_is_user_scoped_and_caps_query():
