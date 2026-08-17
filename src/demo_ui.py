@@ -89,7 +89,7 @@ def retrieve_for_case(
     case: dict[str, Any],
     extra_messages: list[dict[str, str]],
 ) -> dict[str, Any]:
-    """BONUS TODO: run student retrieval for the loaded case.
+    """Run student retrieval for a loaded evaluation case.
 
     Return a dict with keys:
       - "merged_context": str  (StudentMemory.assemble_context output)
