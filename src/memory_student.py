@@ -46,7 +46,7 @@ class StudentMemory:
                 user_id=user_id,
                 query=cap_query(query),
                 scope="episodes",
-                limit=8,
+                limit=20,
             )
             episode_text = render_graph_search(episodes, episode_char_cap=220)
         except Exception:

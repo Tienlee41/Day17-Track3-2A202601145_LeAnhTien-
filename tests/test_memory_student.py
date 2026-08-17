@@ -52,7 +52,7 @@ def test_long_term_combines_context_block_and_user_facts(monkeypatch):
     assert graph.calls[0]["limit"] == 20
     assert graph.calls[1]["user_id"] == "user-1"
     assert graph.calls[1]["scope"] == "episodes"
-    assert graph.calls[1]["limit"] == 8
+    assert graph.calls[1]["limit"] == 20
 
 
 def test_episodic_search_is_user_scoped_and_caps_query():
